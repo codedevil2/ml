@@ -1,0 +1,22 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.kernel_ridge import KernelRidge as LWR
+# Generate sample data
+x = np.random.rand(100)
+y = 2 * x + 3 + np.random.randn(100)
+# Define and fit LWR model
+krr = LWR(kernel='polynomial', alpha=0.1, degree=20)
+krr.fit(x[:, np.newaxis], y)
+plt.figure(figsize=(12,10))
+# Plot original data points
+plt.scatter(x, y)
+# Plot regression lines for different values of sigma
+target_x_range = np.linspace(x.min(), x.max(), 100)
+y_pred = krr.predict(target_x_range[:, np.newaxis])
+plt.plot(target_x_range, y_pred, label=f"sigma={sigma}")
+# Add labels and title
+plt.xlabel("Total bill")
+plt.ylabel("Tip")
+plt.title("Kernel Ridge Regression with Different Kernel Widths")
+# Display the plot
+plt.show()
